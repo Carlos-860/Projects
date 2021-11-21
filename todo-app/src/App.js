@@ -1,14 +1,10 @@
 import TodoItem from './components/TodoItem';
+import TodoData from './todoData';
 
 function App() {
-  return (
-    <div className="todo-list">
-      <TodoItem />
-      <TodoItem />
-      <TodoItem />
-      <TodoItem />
-    </div>
-  );
+  const todoItems = TodoData.map((item) => <TodoItem key={item.id} item={item} />);
+
+  return <div className="todo-list">{todoItems}</div>;
 }
 
 export default App;
