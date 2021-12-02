@@ -5,7 +5,7 @@ function TodoItem(props) {
         type="checkbox"
         checked={props.item.completed}
         onChange={() => {
-          console.log('Handling Event');
+          props.handleChange(props.item.id);
         }}
       />
       <p>{props.item.text}</p>
