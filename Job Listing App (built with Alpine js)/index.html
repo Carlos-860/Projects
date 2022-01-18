@@ -24,7 +24,42 @@
 
     <script defer src="https://unpkg.com/alpinejs@3.8.1/dist/cdn.min.js"></script>
   </head>
-  <body x-data="jobApp()">
+  <body
+    x-data="{ jobList: [
+                {
+                id: '1',
+                title: 'Backend Developer',
+                type: 'Full-time',
+                location: 'Remote',
+                category: 'Engineering',
+                },
+
+                {
+                id: '2',
+                title: 'User Interface Designer',
+                type: 'Part-time',
+                location: 'Remote',
+                category: 'Design',
+                },
+
+                {
+                id: '3',
+                title: 'SEO Specialist',
+                type: 'Full-time',
+                location: 'USA',
+                category: 'SEO',
+                },
+
+                {
+                id: '4',
+                title: 'Content Writer',
+                type: 'Part-time',
+                location: 'Netherlands',
+                category: 'Writing',
+                },
+                ],
+  atTop: true, deleteModal: false, newPostModal: false, editPostModal: false, }"
+  >
     <aside>
       <div style="scrollbar-width: thin" class="fixed hidden lg:flex lg:w-72 bg-white h-screen border-r border-gray-200 flex-col flex-1 pt-5 pb-4 overflow-y-auto text-sm">
         <a href="#" class="mb-4 pl-6">
@@ -191,7 +226,7 @@
 
                     <div>
                       <div class="flex items-center space-x-4">
-                        <button class="group p-2 hover:bg-gray-200 rounded-full">
+                        <button class="group p-2 hover:bg-gray-200 rounded-full" @click="editPostModal = !editPostModal;">
                           <svg xmlns="http://www.w3.org/2000/svg" title="Edit" class="h-5 w-5 text-green-600 group-hover:text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path
                               stroke-linecap="round"
@@ -202,7 +237,10 @@
                           </svg>
                         </button>
 
-                        <button class="group p-2 hover:bg-gray-200 rounded-full">
+                        <button
+                          class="group p-2 hover:bg-gray-200 rounded-full"
+                          @click="deleteModal = !deleteModal; $nextTick(()=> $refs.jobTitle.innerHTML = 'Are you sure you want to remove the <strong>SEO Specialist</strong> job?')"
+                        >
                           <svg xmlns="http://www.w3.org/2000/svg" title="Delete" class="h-5 w-5 text-rose-600 group-hover:text-rose-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                           </svg>
@@ -381,7 +419,7 @@
     </main>
 
     <!-- Create New Post Modal -->
-    <!-- <div
+    <div
       style="background-color: rgba(0, 0, 0, 0.25)"
       class="fixed mx-auto top-0 left-0 w-full h-full hidden items-center shadow-lg overflow-y-auto"
       :class="{ 'flex' : newPostModal=== true}"
@@ -405,7 +443,6 @@
       >
         <div class="bg-white rounded-md overflow-hidden pt-8 pb-0 max-w-md mx-auto" @click.away="newPostModal = !newPostModal">
           <div class="px-8">
-            
             <p class="mb-4 text-lg leading-6 font-medium text-gray-900">New Job Post?</p>
 
             <form action="#">
@@ -483,10 +520,10 @@
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
 
     <!-- Edit Post Modal -->
-    <!-- <div
+    <div
       style="background-color: rgba(0, 0, 0, 0.25)"
       class="fixed mx-auto top-0 left-0 w-full h-full hidden items-center shadow-lg overflow-y-auto"
       :class="{ 'flex' : editPostModal=== true}"
@@ -510,7 +547,6 @@
       >
         <div class="bg-white rounded-md overflow-hidden pt-8 pb-0 max-w-md mx-auto" @click.away="editPostModal = !editPostModal">
           <div class="px-8">
-
             <p class="mb-4 text-lg leading-6 font-medium text-gray-900">Update Job Post?</p>
 
             <form action="#">
@@ -588,10 +624,10 @@
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
 
     <!-- Delete Modal -->
-    <!-- <div
+    <div
       style="background-color: rgba(0, 0, 0, 0.25)"
       class="fixed mx-auto top-0 left-0 w-full h-full hidden items-center shadow-lg overflow-y-auto"
       :class="{ 'flex' : deleteModal === true}"
@@ -639,7 +675,7 @@
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
 
     <script src="./src/js/script.js"></script>
   </body>
