@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Listing App (built with Alpine JS)</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="./src/assets/favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./src/assets/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./src/assets/favicon/favicon-16x16.png" />
+    <link rel="manifest" href="./src/assets/favicon/site.webmanifest" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        font-family: 'Nunito', 'Segoe UI', sans-serif;
+      }
+    </style>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script defer src="https://unpkg.com/alpinejs@3.8.1/dist/cdn.min.js"></script>
+  </head>
+  <body x-data="jobApp()">
+    <aside>
+      <div style="scrollbar-width: thin" class="fixed hidden lg:flex lg:w-72 bg-white h-screen border-r border-gray-200 flex-col flex-1 pt-5 pb-4 overflow-y-auto text-sm">
+        <a href="#" class="mb-4 pl-6">
+          <img src="./src/assets/logoipsum_logo.svg" alt="" />
+        </a>
+
+        <h3 class="text-gray-500 uppercase leading-wide my-4 pl-6">Browser</h3>
+
+        <a href="/" class="p-2 font-semibold text-gray-800 flex border-l-4 hover:border-sky-500 transition-all duration-200 ease-in-out">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 mx-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+          </svg>
+          <span>Overview</span>
+        </a>
+
+        <a href="/" class="p-2 font-semibold text-gray-800 flex border-l-4 hover:border-sky-500 transition-all duration-200 ease-in-out">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 mx-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+            />
+          </svg>
+          <span>Latest Jobs</span>
+        </a>
+
+        <a href="/" class="p-2 font-semibold text-gray-800 flex border-l-4 hover:border-sky-500 transition-all duration-200 ease-in-out">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 mx-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+            />
+          </svg>
+          <span>Explore</span>
+        </a>
+
+        <h3 class="text-gray-500 uppercase leading-wide my-4 pl-6">Jobs</h3>
+
+        <a href="/" class="p-2 font-semibold text-gray-800 flex border-l-4 border-sky-500 bg-sky-50">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-sky-500 mx-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+          </svg>
+          <span>Job Post</span>
+        </a>
+
+        <a href="/" class="p-2 font-semibold text-gray-800 flex border-l-4 hover:border-sky-500 transition-all duration-200 ease-in-out">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 mx-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+            />
+          </svg>
+
+          <span>Job Alerts</span>
+        </a>
+
+        <a href="/" class="p-2 font-semibold text-gray-800 flex border-l-4 hover:border-sky-500 transition-all duration-200 ease-in-out">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 mx-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+            />
+          </svg>
+          <span>Applications</span>
+        </a>
+
+        <h3 class="text-gray-500 uppercase leading-wide my-4 pl-6">Other</h3>
+
+        <a href="/" class="p-2 font-semibold text-gray-800 flex border-l-4 hover:border-sky-500 transition-all duration-200 ease-in-out">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 mx-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8m-5 5h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293h3.172a1 1 0 00.707-.293l2.414-2.414a1 1 0 01.707-.293H20"
+            />
+          </svg>
+          <span>Message</span>
+        </a>
+
+        <a href="/" class="p-2 font-semibold text-gray-800 flex border-l-4 hover:border-sky-500 transition-all duration-200 ease-in-out">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 mx-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>Reminder</span>
+        </a>
+
+        <a href="/" class="p-2 font-semibold text-gray-800 flex border-l-4 hover:border-sky-500 transition-all duration-200 ease-in-out">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 mx-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+            />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <span>Settings</span>
+        </a>
+      </div>
+    </aside>
+
+    <main>
+      <section>
+        <div style="min-height: 200vh" class="bg-gray-50 lg:pl-72">
+          <nav class="sticky top-0 bg-gray-50 border-b border-gray-200 p-2" :class="{ 'shadow-md': atTop === false}" @scroll.window="atTop = (window.pageYOffset > 0 ? false : true)">
+            <div class="max-w-4xl mx-auto flex items-center justify-between h-16">
+              <div></div>
+
+              <div class="shadow-md inline-flex w-max-content items-center rounded-md overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" class="w-10 h-10" />
+                <p class="text-sm text-gray-500 font-semibold mx-4">
+                  <span>Jasmine Doe</span>
+
+                  <svg xmlns="http://www.w3.org/2000/svg" class="inline-block h-5 w-5 -mt-1 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                  </svg>
+                </p>
+              </div>
+            </div>
+          </nav>
+
+          <div class="max-w-2xl mx-auto p-4 mt-12">
+            <div class="flex items-center justify-between">
+              <h1 class="text-gray-800 text-3xl font-semibold flex-1">Job Post</h1>
+
+              <button
+                type="button"
+                class="rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+                @click="newPostModal = true"
+              >
+                Create new job
+              </button>
+            </div>
+
+            <ul class="mt-12">
+              <template x-for="job in jobList" :key="job.id">
+                <li class="mt-8 p-4 shadow-md rounded-md bg-white">
+                  <div class="flex justify-between items-center">
+                    <div>
+                      <div>
+                        <p class="inline-block font-bold text-gray-800 mb-2 mr-3" x-text="job.title"></p>
+
+                        <span style="padding-top: 0.1em; padding-bottom: 0.1rem" class="text-xs px-3 bg-blue-200 text-blue-800 rounded-full" x-text="job.type">Full-time</span>
+                      </div>
+
+                      <p class="text-gray-500 mb-2" x-text="job.category"></p>
+
+                      <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="inline-block h-5 w-5 text-gray-500 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                        </svg>
+
+                        <span class="text-gray-500 text-opacity-60" x-text="job.location"></span>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div class="flex items-center space-x-4">
+                        <button class="group p-2 hover:bg-gray-200 rounded-full">
+                          <svg xmlns="http://www.w3.org/2000/svg" title="Edit" class="h-5 w-5 text-green-600 group-hover:text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                            />
+                          </svg>
+                        </button>
+
+                        <button class="group p-2 hover:bg-gray-200 rounded-full">
+                          <svg xmlns="http://www.w3.org/2000/svg" title="Delete" class="h-5 w-5 text-rose-600 group-hover:text-rose-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </template>
+
+              <!-- <li class="mt-8 p-4 shadow-md rounded-md bg-white">
+                <div class="flex justify-between items-center">
+                  <div>
+                    <div>
+                      <p class="inline-block font-bold text-gray-800 mb-2">Backend Developer</p>
+                      <span style="padding-top: 0.1em; padding-bottom: 0.1rem" class="text-xs px-3 bg-blue-200 text-blue-800 rounded-full">Full-time</span>
+                    </div>
+                    <p class="text-gray-500 mb-2">Engineering</p>
+                    <p>
+                      <svg xmlns="http://www.w3.org/2000/svg" class="inline-block h-5 w-5 text-gray-500 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="text-gray-500 text-opacity-70">Hybrid</span>
+                    </p>
+                  </div>
+
+                  <div>
+                    <div class="flex items-center space-x-4">
+                      <button class="group p-2 hover:bg-gray-200 rounded-full" @click="editPostModal = !editPostModal;">
+                        <svg xmlns="http://www.w3.org/2000/svg" title="Edit" class="h-5 w-5 text-green-600 group-hover:text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                          />
+                        </svg>
+                      </button>
+
+                      <button
+                        class="group p-2 hover:bg-gray-200 rounded-full"
+                        @click="deleteModal = !deleteModal; $nextTick(()=> $refs.jobTitle.innerHTML = 'Are you sure you want to remove the <strong>SEO Specialist</strong> job?')"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" title="Delete" class="h-5 w-5 text-rose-600 group-hover:text-rose-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li class="mt-8 p-4 shadow-md rounded-md bg-white">
+                <div class="flex justify-between items-center">
+                  <div>
+                    <div>
+                      <p class="inline-block font-bold text-gray-800 mb-2">Frontend Developer</p>
+                      <span style="padding-top: 0.1em; padding-bottom: 0.1rem" class="text-xs px-3 bg-blue-200 text-blue-800 rounded-full">Contract</span>
+                    </div>
+                    <p class="text-gray-500 mb-2">Engineering</p>
+                    <p>
+                      <svg xmlns="http://www.w3.org/2000/svg" class="inline-block h-5 w-5 text-gray-500 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="text-gray-500 text-opacity-70">Hybrid</span>
+                    </p>
+                  </div>
+
+                  <div>
+                    <div class="flex items-center space-x-4">
+                      <button class="group p-2 hover:bg-gray-200 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" title="Edit" class="h-5 w-5 text-green-600 group-hover:text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                          />
+                        </svg>
+                      </button>
+
+                      <button class="group p-2 hover:bg-gray-200 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" title="Delete" class="h-5 w-5 text-rose-600 group-hover:text-rose-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li class="mt-8 p-4 shadow-md rounded-md bg-white">
+                <div class="flex justify-between items-center">
+                  <div>
+                    <div>
+                      <p class="inline-block font-bold text-gray-800 mb-2">UI/UX Designer</p>
+                      <span style="padding-top: 0.1em; padding-bottom: 0.1rem" class="text-xs px-3 bg-blue-200 text-blue-800 rounded-full">Contract</span>
+                    </div>
+                    <p class="text-gray-500 mb-2">Engineering</p>
+                    <p>
+                      <svg xmlns="http://www.w3.org/2000/svg" class="inline-block h-5 w-5 text-gray-500 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="text-gray-500 text-opacity-70">Remote</span>
+                    </p>
+                  </div>
+
+                  <div>
+                    <div class="flex items-center space-x-4">
+                      <button class="group p-2 hover:bg-gray-200 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" title="Edit" class="h-5 w-5 text-green-600 group-hover:text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                          />
+                        </svg>
+                      </button>
+
+                      <button class="group p-2 hover:bg-gray-200 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" title="Delete" class="h-5 w-5 text-rose-600 group-hover:text-rose-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              <li class="mt-8 p-4 shadow-md rounded-md bg-white">
+                <div class="flex justify-between items-center">
+                  <div>
+                    <div>
+                      <p class="inline-block font-bold text-gray-800 mb-2">SEO Specialist</p>
+                      <span style="padding-top: 0.1em; padding-bottom: 0.1rem" class="text-xs px-3 bg-blue-200 text-blue-800 rounded-full">Full-time</span>
+                    </div>
+                    <p class="text-gray-500 mb-2">Engineering</p>
+                    <p>
+                      <svg xmlns="http://www.w3.org/2000/svg" class="inline-block h-5 w-5 text-gray-500 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="text-gray-500 text-opacity-70">Remote</span>
+                    </p>
+                  </div>
+
+                  <div>
+                    <div class="flex items-center space-x-4">
+                      <button class="group p-2 hover:bg-gray-200 rounded-full" @click="editPostModal = !editPostModal;">
+                        <svg xmlns="http://www.w3.org/2000/svg" title="Edit" class="h-5 w-5 text-green-600 group-hover:text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                          />
+                        </svg>
+                      </button>
+
+                      <button
+                        class="group p-2 hover:bg-gray-200 rounded-full"
+                        @click="deleteModal = !deleteModal; $nextTick(()=> $refs.jobTitle.innerHTML = 'Are you sure you want to remove the <strong>SEO Specialist</strong> job?')"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" title="Delete" class="h-5 w-5 text-rose-600 group-hover:text-rose-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </li> -->
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Create New Post Modal -->
+    <!-- <div
+      style="background-color: rgba(0, 0, 0, 0.25)"
+      class="fixed mx-auto top-0 left-0 w-full h-full hidden items-center shadow-lg overflow-y-auto"
+      :class="{ 'flex' : newPostModal=== true}"
+      x-show="newPostModal; $el.classList.remove('hidden');"
+      x-transition:enter="transition ease-in-out duration-300"
+      x-transition:enter-start="opacity-0"
+      x-transition:enter-end="opacity-100"
+      x-transition:leave="transition ease-in-out duration-300"
+      x-transition:leave-start="opacity-100"
+      x-transition:leave-end="opacity-0"
+    >
+      <div
+        class="container mx-auto rounded p-4 mt-2 overflow-y-auto"
+        x-show="newPostModal"
+        x-transition:enter="transition transform ease-in-out duration-300 delay-300"
+        x-transition:enter-start="opacity-0 -translate-y-20"
+        x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in-out duration-300"
+        x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 -translate-y-20"
+      >
+        <div class="bg-white rounded-md overflow-hidden pt-8 pb-0 max-w-md mx-auto" @click.away="newPostModal = !newPostModal">
+          <div class="px-8">
+            
+            <p class="mb-4 text-lg leading-6 font-medium text-gray-900">New Job Post?</p>
+
+            <form action="#">
+              <div class="pb-4">
+                <label for="job-title" class="block text-sm font-medium text-gray-700">Job Title</label>
+                <input
+                  type="text"
+                  id="job-title"
+                  autocomplete="off"
+                  placeholder="eg. Web Developer"
+                  class="mt-1 py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border border-gray-300 rounded-md"
+                />
+              </div>
+
+              <div class="pb-4">
+                <label for="job-category" class="block text-sm font-medium text-gray-700">Category</label>
+                <select
+                  id="job-category"
+                  autocomplete="off"
+                  class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                >
+                  <option value="" disabled selected hidden>eg. Design</option>
+                  <option>Design</option>
+                  <option>Development</option>
+                  <option>SEO</option>
+                </select>
+              </div>
+
+              <div class="pb-4">
+                <label for="job-type" class="block text-sm font-medium text-gray-700">Type</label>
+                <select
+                  id="job-type"
+                  autocomplete="off"
+                  class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                >
+                  <option value="" disabled selected hidden>eg. Part-time</option>
+                  <option>Part-time</option>
+                  <option>Full-time</option>
+                  <option>Contract</option>
+                </select>
+              </div>
+
+              <div class="pb-4">
+                <label for="job-type" class="block text-sm font-medium text-gray-700">Location</label>
+                <select
+                  id="job-type"
+                  autocomplete="off"
+                  class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                >
+                  <option value="" disabled selected hidden>eg. On-site</option>
+                  <option>On-site</option>
+                  <option>Remote</option>
+                  <option>Hybrid</option>
+                </select>
+              </div>
+            </form>
+          </div>
+
+          <div class="flex justify-end space-x-4 px-4 py-3 mt-8 bg-gray-50">
+            <button
+              type="button"
+              class="rounded-md border border-gray-50 hover:border-gray-400 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-400 sm:text-sm"
+              @click="newPostModal = false"
+            >
+              Cancel
+            </button>
+
+            <button
+              type="button"
+              class="rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:text-sm"
+              @click="deleteAllTodo(); isOpen = !isOpen"
+            >
+              Post Job
+            </button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- Edit Post Modal -->
+    <!-- <div
+      style="background-color: rgba(0, 0, 0, 0.25)"
+      class="fixed mx-auto top-0 left-0 w-full h-full hidden items-center shadow-lg overflow-y-auto"
+      :class="{ 'flex' : editPostModal=== true}"
+      x-show="editPostModal; $el.classList.remove('hidden');"
+      x-transition:enter="transition ease-in-out duration-300"
+      x-transition:enter-start="opacity-0"
+      x-transition:enter-end="opacity-100"
+      x-transition:leave="transition ease-in-out duration-300"
+      x-transition:leave-start="opacity-100"
+      x-transition:leave-end="opacity-0"
+    >
+      <div
+        class="container mx-auto rounded p-4 mt-2 overflow-y-auto"
+        x-show="editPostModal"
+        x-transition:enter="transition transform ease-in-out duration-300 delay-300"
+        x-transition:enter-start="opacity-0 -translate-y-20"
+        x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in-out duration-300"
+        x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 -translate-y-20"
+      >
+        <div class="bg-white rounded-md overflow-hidden pt-8 pb-0 max-w-md mx-auto" @click.away="editPostModal = !editPostModal">
+          <div class="px-8">
+
+            <p class="mb-4 text-lg leading-6 font-medium text-gray-900">Update Job Post?</p>
+
+            <form action="#">
+              <div class="pb-4">
+                <label for="job-title" class="block text-sm font-medium text-gray-700">Job Title</label>
+                <input
+                  type="text"
+                  id="job-title"
+                  autocomplete="off"
+                  placeholder="eg. Web Developer"
+                  class="mt-1 py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border border-gray-300 rounded-md"
+                />
+              </div>
+
+              <div class="pb-4">
+                <label for="job-category" class="block text-sm font-medium text-gray-700">Category</label>
+                <select
+                  id="job-category"
+                  autocomplete="off"
+                  class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                >
+                  <option value="" disabled selected hidden>eg. Design</option>
+                  <option>Design</option>
+                  <option>Development</option>
+                  <option>SEO</option>
+                </select>
+              </div>
+
+              <div class="pb-4">
+                <label for="job-type" class="block text-sm font-medium text-gray-700">Type</label>
+                <select
+                  id="job-type"
+                  autocomplete="off"
+                  class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                >
+                  <option value="" disabled selected hidden>eg. Part-time</option>
+                  <option>Part-time</option>
+                  <option>Full-time</option>
+                  <option>Contract</option>
+                </select>
+              </div>
+
+              <div class="pb-4">
+                <label for="job-type" class="block text-sm font-medium text-gray-700">Location</label>
+                <select
+                  id="job-type"
+                  autocomplete="off"
+                  class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                >
+                  <option value="" disabled selected hidden>eg. On-site</option>
+                  <option>On-site</option>
+                  <option>Remote</option>
+                  <option>Hybrid</option>
+                </select>
+              </div>
+            </form>
+          </div>
+
+          <div class="flex justify-end space-x-4 px-4 py-3 mt-8 bg-gray-50">
+            <button
+              type="button"
+              class="rounded-md border border-gray-50 hover:border-gray-400 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-400 sm:text-sm"
+              @click="editPostModal = false"
+            >
+              Cancel
+            </button>
+
+            <button
+              type="button"
+              class="rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+              @click="deleteAllTodo(); isOpen = !isOpen"
+            >
+              Update
+            </button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- Delete Modal -->
+    <!-- <div
+      style="background-color: rgba(0, 0, 0, 0.25)"
+      class="fixed mx-auto top-0 left-0 w-full h-full hidden items-center shadow-lg overflow-y-auto"
+      :class="{ 'flex' : deleteModal === true}"
+      x-show="deleteModal; $el.classList.remove('hidden');"
+      x-transition:enter="transition ease-in-out duration-300"
+      x-transition:enter-start="opacity-0"
+      x-transition:enter-end="opacity-100"
+      x-transition:leave="transition ease-in-out duration-300"
+      x-transition:leave-start="opacity-100"
+      x-transition:leave-end="opacity-0"
+    >
+      <div
+        class="container mx-auto rounded p-4 mt-2 overflow-y-auto"
+        x-show="deleteModal"
+        x-transition:enter="transition transform ease-in-out duration-300 delay-300"
+        x-transition:enter-start="opacity-0 -translate-y-20"
+        x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in-out duration-300"
+        x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 -translate-y-20"
+      >
+        <div class="bg-white rounded p-8 max-w-sm mx-auto text-center" @click.away="deleteModal = !deleteModal">
+          <img src="./src/assets/JobListingApp_delete.svg" alt="" width="360" class="w-52 mx-auto my-12" />
+
+          <p class="mb-4 text-lg leading-6 font-medium text-gray-900">Delete Job Post?</p>
+
+          <p class="mb-8 text-sm text-gray-500" x-ref="jobTitle" x-text="`Are you sure you want to remove this Job?`"></p>
+
+          <div class="space-y-4">
+            <button
+              type="button"
+              class="w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:text-sm"
+              @click="deleteAllTodo(); isOpen = !isOpen"
+            >
+              Yes, delete
+            </button>
+
+            <button
+              type="button"
+              class="mt-3 w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-400 sm:text-sm"
+              @click="deleteModal = false"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <script src="./src/js/script.js"></script>
+  </body>
+</html>
