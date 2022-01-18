@@ -13,6 +13,6 @@
 
 - [trAvel](https://carlos-860.github.io/Projects/Travel%20Agency%20Concept/index.html)
 
-## 2. React Projects
+## 2. Other Projects
 
-...
+- [Todo App (built with Alpine JS)](https://carlos-860.github.io/Projects/Todo%20App%20(built%20with%20Alphine%20js)/index.html)
