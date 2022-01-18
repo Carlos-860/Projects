@@ -16,3 +16,4 @@
 ## 2. Other Projects
 
 - [Todo App (built with Alpine JS)](https://carlos-860.github.io/Projects/Todo%20App%20(built%20with%20Alphine%20js)/index.html)
+- [Job Listing App (built with Alpine JS)](https://carlos-860.github.io/Projects/Job%20Listing%20App%20(built%20with%20Alpine%20js)/index.html)
