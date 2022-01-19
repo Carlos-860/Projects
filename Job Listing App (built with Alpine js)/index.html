@@ -76,6 +76,24 @@
       category: 'Engineering',
     },
 
+    addJob() {
+        this.jobList.unshift(this.activeJob); 
+
+        this.jobList = this.jobList.map((item, index) => {
+            item.id = index;
+            return item;
+        })
+
+        this.newPostModal = false;
+
+        this.activeJob = {
+            title: 'Web Developer',
+            type: 'Full-time',
+            location: 'Remote',
+            category: 'Engineering',
+        };
+    },
+
     editJob(id) {
       this.editMode = true;
       this.newPostModal = true;
@@ -300,7 +318,7 @@
                       <div>
                         <p class="inline-block font-bold text-gray-800 mb-2 mr-3" x-text="job.title"></p>
 
-                        <span style="padding-top: 0.1em; padding-bottom: 0.1rem" class="text-xs px-3 bg-blue-200 text-blue-800 rounded-full" x-text="job.type">Full-time</span>
+                        <span style="padding-top: 0.1em; padding-bottom: 0.1rem" class="text-xs px-3 bg-blue-200 text-blue-800 rounded-full" x-text="job.type"></span>
                       </div>
 
                       <p class="text-gray-500 mb-2" x-text="job.category"></p>
@@ -621,7 +639,7 @@
               <button
                 type="button"
                 class="rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
-                @click="jobList.push(activeJob); newPostModal = false;"
+                @click="addJob();"
               >
                 <!-- @click="jobList.unshift(activeJob); newPostModal = false;" -->
                 Post Job
