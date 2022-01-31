@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Section({ title, description, backgroundimg, leftBtnText, rightBtnText }) {
+function Section({ title, description, backgroundImg, leftBtnText, rightBtnText }) {
   return (
-    <Wrap>
+    <Wrap bgImage={backgroundImg}>
       <ItemText>
         <h1>{title}</h1>
         <p>{description}</p>
@@ -13,7 +13,10 @@ function Section({ title, description, backgroundimg, leftBtnText, rightBtnText 
         <ButtonGroup>
           <LeftButton>{leftBtnText}</LeftButton>
 
-          <RightButton>{rightBtnText}</RightButton>
+          {
+            rightBtnText && <RightButton>{rightBtnText}</RightButton>
+            /* If the right button text exists then only print it. */
+          }
         </ButtonGroup>
 
         <DownArrow src="/images/down-arrow.svg"></DownArrow>
@@ -27,11 +30,11 @@ export default Section;
 const Wrap = styled.div`
   width: 100vw;
   height: 100vh;
-  background: url('/images/model-s.jpg') no-repeat center/cover;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  background: ${(props) => `url("/images/${props.bgImage}")`} no-repeat center/cover;
 `;
 
 const ItemText = styled.div`
