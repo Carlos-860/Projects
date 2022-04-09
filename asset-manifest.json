@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/Projects/static/css/main.6cefed14.css",
+    "main.js": "/Projects/static/js/main.fb5dd78c.js",
+    "static/media/5-empire-strikes-back.jpg": "/Projects/static/media/5-empire-strikes-back.9b372d2834b185150a07.jpg",
+    "static/media/4-a-new-hope.jpg": "/Projects/static/media/4-a-new-hope.74e552418a05ac8ea075.jpg",
+    "static/media/6-return-of-the-jedi.jpg": "/Projects/static/media/6-return-of-the-jedi.b8aef012ca811aa78152.jpg",
+    "static/media/2-attack-of-the-clones.jpg": "/Projects/static/media/2-attack-of-the-clones.a7b1cea1947bc56ed72c.jpg",
+    "static/media/3-regenve-of-the-sith.jpg": "/Projects/static/media/3-regenve-of-the-sith.50f4ea470506f32a4628.jpg",
+    "static/media/1-the-phantom-manace.jpg": "/Projects/static/media/1-the-phantom-manace.08fc2196b5a605f22bf2.jpg",
+    "static/media/star-wars-logo.svg": "/Projects/static/media/star-wars-logo.4cea5227578d641de179f31bab224088.svg",
+    "index.html": "/Projects/index.html",
+    "main.6cefed14.css.map": "/Projects/static/css/main.6cefed14.css.map",
+    "main.fb5dd78c.js.map": "/Projects/static/js/main.fb5dd78c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6cefed14.css",
+    "static/js/main.fb5dd78c.js"
+  ]
+}
