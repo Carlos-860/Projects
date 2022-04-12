@@ -33,7 +33,7 @@ function Header() {
         </a>
       </NavMenu>
 
-      <UserImg src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" />
+      <UserImg src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc" />
     </Nav>
   );
 }
@@ -46,6 +46,7 @@ const Nav = styled.nav`
   display: flex;
   align-items: center;
   padding: 0 2.25rem;
+  overflow-x: hidden;
 `;
 
 const Logo = styled.img`
